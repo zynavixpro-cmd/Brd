@@ -29,15 +29,27 @@
             flex-direction: column;
         }
         
-        /* ===== HEADER - الشريط العلوي (icone1) ===== */
+        /* ===== HEADER - الشريط العلوي المحدث ليكون متناسقاً ===== */
         .top-header {
             width: 100%;
+            max-width: 480px; /* تم تحديد العرض ليتناسق مع الحاوية */
+            margin: 0 auto; /* توسيط الشريط */
             height: 80px;
             background: linear-gradient(90deg, #f472b6 0%, #fb7185 25%, #fdba74 60%, #fbbf24 100%);
             display: flex;
             align-items: center;
             padding: 0 40px;
             flex-shrink: 0;
+            border-bottom-left-radius: 15px; /* لمسة جمالية للحواف */
+            border-bottom-right-radius: 15px;
+        }
+
+        @media (min-width: 1024px) {
+            .top-header {
+                max-width: 450px; /* يتناسب مع عرض الحاوية في الشاشات الكبيرة */
+                margin-top: 20px; /* إعطاء مساحة علوية بسيطة */
+                border-radius: 15px;
+            }
         }
         
         .header-logo-img {
@@ -83,7 +95,6 @@
             margin-bottom: 30px; 
         }
         
-        /* تكبير أيقونة الوسط (icone2) */
         .brd-icon {
             width: 150px;
             height: 150px;
@@ -204,7 +215,6 @@
             font-weight: 500; 
         }
         
-        /* ===== FOOTER - النصف السفلي ===== */
         .bottom-footer {
             width: 100%;
             background: #0f0f1a;
@@ -407,7 +417,7 @@
                             <span class="store-btn-large">App Store</span>
                         </div>
                     </a>
-                    </div>
+                </div>
             </div>
             
             <div class="footer-right">
