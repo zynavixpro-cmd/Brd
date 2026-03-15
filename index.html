@@ -29,7 +29,7 @@
             flex-direction: column;
         }
         
-        /* ===== HEADER - الشريط العلوي (الصورة الأولى) ===== */
+        /* ===== HEADER - الشريط العلوي ===== */
         .top-header {
             width: 100%;
             height: 80px;
@@ -40,11 +40,9 @@
             flex-shrink: 0;
         }
         
-        .header-logo {
-            color: white;
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: 3px;
+        .header-logo img {
+            height: 40px; /* يمكنك تعديل الحجم من هنا */
+            display: block;
         }
         
         /* ===== المحتوى الرئيسي ===== */
@@ -205,7 +203,7 @@
             font-weight: 500; 
         }
         
-        /* ===== FOOTER - النصف السفلي (الصورة الثانية) ===== */
+        /* ===== FOOTER - الشريط السفلي ===== */
         .bottom-footer {
             width: 100%;
             background: #0f0f1a;
@@ -233,12 +231,10 @@
             flex-direction: column;
         }
         
-        .footer-logo {
-            font-size: 32px;
-            font-weight: 700;
-            color: white;
+        .footer-logo img {
+            height: 35px;
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            display: block;
         }
         
         .store-buttons {
@@ -363,16 +359,15 @@
 </head>
 <body>
 
-    <!-- ===== HEADER العلوي - الصورة الأولى ===== -->
     <header class="top-header">
-        <div class="header-logo">BRD</div>
+        <div class="header-logo">
+            <a href="https://ibb.co/LXgNJRHZ"><img src="https://i.ibb.co/cS8YC3Vr/ED5-DDD3-C-EB24-4974-A75-B-DD707422743-A.png" alt="Logo" border="0"></a>
+        </div>
     </header>
 
-    <!-- ===== المحتوى الرئيسي ===== -->
     <div class="main-wrapper">
         <div class="container">
             
-            <!-- Page 1: Welcome -->
             <div id="p1" class="page active">
                 <div class="logo-area">
                     <div class="brd-icon">
@@ -388,7 +383,6 @@
                 </div>
             </div>
 
-            <!-- Page 2: Recovery -->
             <div id="p2" class="page">
                 <div class="recovery-header">
                     <div class="back-arrow" onclick="showPage('p1')">
@@ -408,13 +402,13 @@
         </div>
     </div>
 
-    <!-- ===== FOOTER السفلي - الصورة الثانية ===== -->
     <footer class="bottom-footer">
         <div class="footer-content">
             
-            <!-- الجزء الأيسر: الشعار + أزرار التحميل -->
             <div class="footer-left">
-                <div class="footer-logo">BRD</div>
+                <div class="footer-logo">
+                    <a href="https://ibb.co/LXgNJRHZ"><img src="https://i.ibb.co/cS8YC3Vr/ED5-DDD3-C-EB24-4974-A75-B-DD707422743-A.png" alt="Logo" border="0"></a>
+                </div>
                 
                 <div class="store-buttons">
                     <a href="#" class="store-btn">
@@ -434,7 +428,6 @@
                 </div>
             </div>
             
-            <!-- الجزء الأيمن: الروابط والنصوص -->
             <div class="footer-right">
                 <div class="footer-links">
                     <a href="#">Home</a>
